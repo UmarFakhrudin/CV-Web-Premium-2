@@ -17,13 +17,13 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulating a real integration - in a real scenario, you'd use Formspree, EmailJS, or a custom backend
-    // For this demo, we'll simulate the success state
+    // Simulating a real integration
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    // Constructing mailto as a fallback/direct action
-    const mailtoLink = `mailto:${cvData.contact.email}?subject=${encodeURIComponent(formState.subject || 'Pesan dari Website CV')}&body=${encodeURIComponent(`Nama: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`)}`;
-    window.location.href = mailtoLink;
+    // Constructing WhatsApp link
+    const whatsappMessage = `Halo Umar, saya ${formState.name}.\n\nSubjek: ${formState.subject}\n\nPesan: ${formState.message}`;
+    const whatsappLink = `https://wa.me/${cvData.contact.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappLink, '_blank');
     
     setIsSubmitting(false);
     setIsSent(true);
@@ -62,7 +62,7 @@ export default function Contact() {
               transition={{ delay: 0.1 }}
               className="text-[var(--text-muted)] leading-[1.7]"
             >
-              Terbuka untuk peluang baru dalam copywriting, desain grafis, atau peran administratif. Jangan ragu untuk menghubungi saya langsung melalui formulir atau platform di bawah ini.
+              Terbuka untuk peluang baru dalam copywriting, desain grafis, atau peran administratif. Jangan ragu untuk menghubungi saya langsung melalui WhatsApp di bawah ini.
             </motion.p>
           </div>
 
@@ -162,14 +162,14 @@ export default function Contact() {
             <button 
               type="submit" 
               disabled={isSubmitting}
-              className={`btn mt-2 flex items-center justify-center gap-3 ${isSent ? 'bg-green-600 text-white' : 'bg-[var(--gold)] text-[var(--navy)]'} font-bold transition-all duration-300 disabled:opacity-70`}
+              className={`btn mt-2 flex items-center justify-center gap-3 ${isSent ? 'bg-green-600 text-white' : 'bg-[#25d366] text-white'} font-bold transition-all duration-300 disabled:opacity-70`}
             >
               {isSubmitting ? (
-                <div className="w-5 h-5 border-2 border-[var(--navy)] border-t-transparent rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : isSent ? (
                 <>Terkirim <CheckCircle2 size={18} /></>
               ) : (
-                <>Kirim Pesan <Send size={16} /></>
+                <>Kirim via WhatsApp <MessageSquare size={16} /></>
               )}
             </button>
           </form>
