@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Space+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Bebas Neue", sans-serif;
+
+  --color-navy: #0d1b2a;
+  --color-navy2: #1a2e45;
+  --color-gold: #c9923a;
+  --color-gold2: #e8b86d;
+  --color-cream: #f5f0e8;
+  --color-white: #ffffff;
+  --color-red: #c0392b;
+  --color-text-muted: #8a9bb0;
+}
+
+@layer base {
+  :root {
+    --navy: #0d1b2a;
+    --navy2: #1a2e45;
+    --gold: #c9923a;
+    --gold2: #e8b86d;
+    --cream: #f5f0e8;
+    --white: #ffffff;
+    --text-muted: #8a9bb0;
+    --transition-theme: background 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+  }
+
+  body.light {
+    --navy: #f0f4f8;
+    --navy2: #e2e9f0;
+    --cream: #1a2e45;
+    --white: #0d1b2a;
+    --text-muted: #4a6080;
+  }
+
+  body {
+    @apply bg-[var(--navy)] text-[var(--cream)] font-sans overflow-x-hidden cursor-none;
+    transition: var(--transition-theme);
+  }
+
+  body::before {
+    content: '';
+    @apply fixed inset-0 pointer-events-none z-[1000] opacity-30;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-2.5 px-7 py-3.5 rounded-sm font-mono text-[0.72rem] tracking-[2px] uppercase no-underline border-none cursor-none transition-all duration-300 relative overflow-hidden;
+  }
+
+  .btn::before {
+    content: '';
+    @apply absolute inset-0 -translate-x-full transition-transform duration-400 ease-out;
+  }
+
+  .btn:hover::before {
+    @apply translate-x-0;
+  }
+
+  .section-label {
+    @apply font-mono text-[0.65rem] tracking-[4px] uppercase text-[var(--gold)] mb-3 flex items-center gap-3;
+  }
+
+  .section-label::before {
+    content: '';
+    @apply w-[30px] h-[1px] bg-[var(--gold)];
+  }
+
+  .section-title {
+    @apply font-display text-4xl md:text-7xl leading-[0.95] text-[var(--white)] mb-14;
+  }
+
+  .section-title span {
+    @apply text-[var(--gold)];
+  }
+}
+
+/* Custom Cursor */
+.cursor {
+  @apply fixed w-3 h-3 bg-[var(--gold)] rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-[transform,width,height,background] duration-300;
+}
+
+.cursor-ring {
+  @apply fixed w-9 h-9 border-2 border-[var(--gold2)] rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-[transform,width,height,opacity] duration-150 ease-out opacity-60;
+}
+
+/* Animations */
+@keyframes gridMove {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(60px,60px); }
+}
+
+.hero-bg-lines {
+  @apply absolute inset-0 pointer-events-none;
+  background-image:
+    linear-gradient(rgba(201,146,58,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,146,58,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridMove 20s linear infinite;
+}
+
+body.light .hero-bg-lines {
+  background-image:
+    linear-gradient(rgba(201,146,58,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,146,58,0.08) 1px, transparent 1px);
+}
