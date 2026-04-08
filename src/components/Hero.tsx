@@ -1,12 +1,30 @@
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { useRef } from 'react';
 import { cvData } from '../data/cvData';
 
 export default function Hero() {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+
   return (
-    <section id="hero" className="min-h-screen grid grid-cols-1 lg:grid-cols-2 items-center px-6 md:px-16 pt-32 pb-16 relative overflow-hidden">
+    <section 
+      id="hero" 
+      ref={containerRef}
+      className="min-h-screen grid grid-cols-1 lg:grid-cols-2 items-center px-6 md:px-16 pt-32 pb-16 relative overflow-hidden"
+    >
       <div className="hero-bg-lines" />
       
-      <div className="relative z-[2]">
+      <motion.div 
+        style={{ opacity }}
+        className="relative z-[2]"
+      >
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -63,9 +81,10 @@ export default function Hero() {
             Lihat Pengalaman
           </a>
         </motion.div>
-      </div>
+      </motion.div>
 
       <motion.div 
+        style={{ y, scale, opacity }}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
