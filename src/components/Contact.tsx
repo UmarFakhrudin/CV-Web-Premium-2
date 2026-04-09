@@ -13,17 +13,21 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent, target: 'whatsapp' | 'email') => {
     e.preventDefault();
     setIsSubmitting(true);
     
     // Simulating a real integration
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    // Constructing WhatsApp link
-    const whatsappMessage = `Halo Umar, saya ${formState.name}.\n\nSubjek: ${formState.subject}\n\nPesan: ${formState.message}`;
-    const whatsappLink = `https://wa.me/${cvData.contact.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
-    window.open(whatsappLink, '_blank');
+    if (target === 'whatsapp') {
+      const whatsappMessage = `Halo ${cvData.name.split(' ')[0]}, saya ${formState.name}.\n\nSubjek: ${formState.subject}\n\nPesan: ${formState.message}`;
+      const whatsappLink = `https://wa.me/${cvData.contact.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappLink, '_blank');
+    } else {
+      const mailtoLink = `mailto:${cvData.contact.email}?subject=${encodeURIComponent(formState.subject || 'Pesan dari Website CV')}&body=${encodeURIComponent(`Nama: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`)}`;
+      window.location.href = mailtoLink;
+    }
     
     setIsSubmitting(false);
     setIsSent(true);
@@ -62,7 +66,7 @@ export default function Contact() {
               transition={{ delay: 0.1 }}
               className="text-[var(--text-muted)] leading-[1.7]"
             >
-              Terbuka untuk peluang baru dalam copywriting, desain grafis, atau peran administratif. Jangan ragu untuk menghubungi saya langsung melalui WhatsApp di bawah ini.
+              Terbuka untuk peluang baru dalam digital marketing, content creation, atau peran kreatif lainnya. Jangan ragu untuk menghubungi saya langsung melalui formulir di samping.
             </motion.p>
           </div>
 
@@ -101,7 +105,7 @@ export default function Contact() {
           viewport={{ once: true }}
           className="bg-[rgba(13,27,42,0.4)] border border-[rgba(201,146,58,0.15)] rounded-xl p-6 md:p-8 backdrop-blur-sm"
         >
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <form className="flex flex-col gap-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="flex flex-col gap-2">
                 <label htmlFor="name" className="font-mono text-[0.65rem] uppercase tracking-widest text-[var(--gold2)]">Nama Lengkap</label>
@@ -159,19 +163,41 @@ export default function Contact() {
               />
             </div>
 
-            <button 
-              type="submit" 
-              disabled={isSubmitting}
-              className={`btn mt-2 flex items-center justify-center gap-3 ${isSent ? 'bg-green-600 text-white' : 'bg-[#25d366] text-white'} font-bold transition-all duration-300 disabled:opacity-70`}
-            >
-              {isSubmitting ? (
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              ) : isSent ? (
-                <>Terkirim <CheckCircle2 size={18} /></>
-              ) : (
-                <>Kirim via WhatsApp <MessageSquare size={16} /></>
-              )}
-            </button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+              <button 
+                type="button"
+                onClick={(e) => handleSubmit(e as any, 'whatsapp')}
+                disabled={isSubmitting}
+                className={`btn flex items-center justify-center gap-3 ${isSent ? 'bg-green-600 text-white' : 'bg-[#25d366] text-white'} font-bold transition-all duration-300 disabled:opacity-70`}
+              >
+                {isSubmitting ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <>WhatsApp <MessageSquare size={16} /></>
+                )}
+              </button>
+              <button 
+                type="button"
+                onClick={(e) => handleSubmit(e as any, 'email')}
+                disabled={isSubmitting}
+                className={`btn flex items-center justify-center gap-3 ${isSent ? 'bg-blue-600 text-white' : 'bg-[var(--gold)] text-[var(--navy)]'} font-bold transition-all duration-300 disabled:opacity-70`}
+              >
+                {isSubmitting ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <>Email <Mail size={16} /></>
+                )}
+              </button>
+            </div>
+            {isSent && (
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center text-green-500 font-mono text-xs mt-2"
+              >
+                Pesan sedang diproses...
+              </motion.p>
+            )}
           </form>
         </motion.div>
       </div>

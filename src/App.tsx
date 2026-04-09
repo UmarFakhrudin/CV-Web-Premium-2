@@ -11,7 +11,6 @@ import Education from './components/Education';
 import Languages from './components/Languages';
 import Hobbies from './components/Hobbies';
 import Contact from './components/Contact';
-import Download from './components/Download';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import Particles from './components/Particles';
@@ -31,7 +30,6 @@ export default function App() {
         <Languages />
         <Hobbies />
         <Contact />
-        <Download />
       </main>
 
       <Footer />

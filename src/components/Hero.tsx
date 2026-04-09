@@ -91,15 +91,30 @@ export default function Hero() {
         transition={{ duration: 0.8, delay: 0.5 }}
         className="relative z-[2] flex items-center justify-center mt-12 lg:mt-0"
       >
-        <div className="relative w-[240px] h-[300px] sm:w-[280px] sm:h-[350px] md:w-[340px] md:h-[420px]">
-          <div className="absolute -top-4 -left-4 -right-4 -bottom-4 border-2 border-[var(--gold)] rounded-lg z-0 animate-[framePulse_3s_ease_infinite]" />
-          <div className="absolute top-4 left-4 -right-4 -bottom-4 bg-[rgba(201,146,58,0.1)] rounded-lg z-0" />
-          <img 
-            src={cvData.photo} 
-            alt={cvData.name}
-            className="w-full h-full object-cover object-top rounded-lg relative z-[1] grayscale-[20%] contrast-[1.1]"
-            referrerPolicy="no-referrer"
-          />
+        <div className="relative w-full max-w-[400px] aspect-square flex flex-col items-center justify-center bg-[rgba(26,46,69,0.4)] border border-[rgba(201,146,58,0.2)] rounded-2xl p-8 backdrop-blur-md">
+          <div className="absolute -top-4 -left-4 -right-4 -bottom-4 border-2 border-[var(--gold)] rounded-2xl z-0 animate-[framePulse_3s_ease_infinite]" />
+          
+          <div className="text-6xl mb-6 animate-bounce">📄</div>
+          <h3 className="font-display text-4xl text-[var(--white)] mb-2 tracking-wider">UNDUH CV</h3>
+          <p className="text-[var(--text-muted)] text-center mb-8 text-sm">Pilih format dokumen yang Anda inginkan untuk melihat profil lengkap saya.</p>
+          
+          <div className="flex flex-col w-full gap-4">
+            <a 
+              href={cvData.downloads.pdf} 
+              download 
+              className="btn w-full bg-[var(--gold)] text-[var(--navy)] font-bold flex items-center justify-center gap-3 hover:shadow-[0_8px_30px_rgba(201,146,58,0.4)] transition-all"
+            >
+              UNDUH PDF (DOKUMEN)
+            </a>
+            <a 
+              href={cvData.downloads.jpg} 
+              download 
+              className="btn w-full bg-transparent border border-[var(--gold)] text-[var(--gold)] font-bold flex items-center justify-center gap-3 hover:bg-[rgba(201,146,58,0.1)] transition-all"
+            >
+              UNDUH JPG (GAMBAR)
+            </a>
+          </div>
+
           <div className="absolute -bottom-5 -right-5 bg-[var(--gold)] text-[var(--navy)] w-16 h-16 md:w-20 md:h-20 rounded-full flex flex-col items-center justify-center font-display text-sm md:text-[1.1rem] leading-[1.1] z-[3] animate-[rotateBadge_10s_linear_infinite] shadow-[0_4px_20px_rgba(201,146,58,0.5)]">
             {cvData.experienceYears}+<br />THN
           </div>

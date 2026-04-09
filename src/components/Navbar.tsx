@@ -40,7 +40,7 @@ export default function Navbar() {
       </AnimatePresence>
 
       <nav className="fixed top-0 left-0 right-0 z-[500] px-6 md:px-16 py-5 flex items-center justify-between backdrop-blur-xl bg-[rgba(13,27,42,0.85)] border-bottom border-[rgba(201,146,58,0.15)] transition-colors duration-500">
-        <a href="#hero" className="font-display text-2xl tracking-[3px] text-[var(--gold)] no-underline">UF</a>
+        <a href="#hero" className="font-display text-2xl tracking-[3px] text-[var(--gold)] no-underline">SA</a>
         
         <ul className="hidden md:flex gap-8 list-none">
           {['Keahlian', 'Pengalaman', 'Pendidikan', 'Kontak'].map((item) => (
@@ -55,7 +55,7 @@ export default function Navbar() {
           ))}
           <li>
             <a 
-              href="#download"
+              href="#hero"
               className="font-mono text-[0.7rem] tracking-[2px] uppercase text-[var(--gold)] no-underline hover:text-[var(--gold2)] transition-colors duration-300"
             >
               Unduh CV

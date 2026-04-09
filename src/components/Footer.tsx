@@ -9,7 +9,7 @@ export default function Footer() {
         © {year} {cvData.name} — Hak Cipta Dilindungi
       </p>
       <p className="font-mono text-[0.65rem] text-[var(--text-muted)] tracking-[1px] mt-2 md:mt-0">
-        {cvData.title} · Cirebon, Indonesia
+        {cvData.title} · Jakarta, Indonesia
       </p>
     </footer>
   );
