@@ -89,12 +89,25 @@ export default function Hero() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.5 }}
-        className="relative z-[2] flex items-center justify-center mt-12 lg:mt-0"
+        className="relative z-[2] flex flex-col items-center justify-center mt-12 lg:mt-0 gap-10"
       >
-        <div className="relative w-full max-w-[400px] aspect-square flex flex-col items-center justify-center bg-[rgba(26,46,69,0.4)] border border-[rgba(201,146,58,0.2)] rounded-2xl p-8 backdrop-blur-md">
+        {/* Profile Photo */}
+        <div className="relative w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] md:w-[320px] md:h-[320px]">
           <div className="absolute -top-4 -left-4 -right-4 -bottom-4 border-2 border-[var(--gold)] rounded-2xl z-0 animate-[framePulse_3s_ease_infinite]" />
+          <div className="absolute top-4 left-4 -right-4 -bottom-4 bg-[rgba(201,146,58,0.1)] rounded-2xl z-0" />
+          <img 
+            src={cvData.photo} 
+            alt={cvData.name}
+            className="w-full h-full object-cover object-top rounded-2xl relative z-[1] grayscale-[20%] contrast-[1.1]"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+
+        {/* Download Box */}
+        <div className="relative w-full max-w-[400px] flex flex-col items-center justify-center bg-[rgba(26,46,69,0.4)] border border-[rgba(201,146,58,0.2)] rounded-2xl p-8 backdrop-blur-md">
+          <div className="absolute -top-4 -left-4 -right-4 -bottom-4 border-2 border-[var(--gold)] rounded-2xl z-0 opacity-20" />
           
-          <div className="text-6xl mb-6 animate-bounce">📄</div>
+          <div className="text-5xl mb-6 animate-bounce">📄</div>
           <h3 className="font-display text-4xl text-[var(--white)] mb-2 tracking-wider">UNDUH CV</h3>
           <p className="text-[var(--text-muted)] text-center mb-8 text-sm">Pilih format dokumen yang Anda inginkan untuk melihat profil lengkap saya.</p>
           
